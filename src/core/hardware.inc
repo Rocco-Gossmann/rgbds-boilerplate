@@ -114,8 +114,8 @@ cOAM              equ  $FE00 ; - FE9F
 cRAM              equ  $C000
 cRAMBANK          equ  $A000
 
-cBGMAP1           equ  $9C00 ; - 9fff   used when LCDC s bit $10 bit is turned on
-cBGMAP0           equ  $9800 ; - 9bff   used when LCDC s bit $10 bit is turned off
+cBGMAP1           equ  $9C00 ; - 9fff   used when LCDC s bit $10 is turned on
+cBGMAP0           equ  $9800 ; - 9bff   used when LCDC s bit $10 is turned off
 
 cTILEDATA0       equ  $8800 ; - 97ff    (4 KB)
 cTILEDATA1       equ  $8000 ; - 8fff    (4 KB) contains also sprite-tiles

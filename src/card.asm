@@ -7,56 +7,52 @@ ret
 
 ; $0040 - $0067: Interrupts.
 ; $0040  VBlank
+reti
 rept 7
     nop
 endr
-reti
 
 ; $0048 stats
+reti
 rept 7
     nop
 endr
-reti
 
 ; $0050  timer
+reti
 rept 7
     nop
 endr
-reti
 
 ; $0058 link-cable (serial)
+reti
 rept 7
     nop
 endr
-reti
 
 ; $0060  Joypad
+reti
 rept 7
     nop
 endr
-reti
 
-DS $98 ;$0068 - $00FF: Space. DON'T change: 
+; $0068 - $00FF: Space.
+DS $98
 
-
-;===============================================================================
-; Main function
-;===============================================================================
 ; $0100 - $0103: Startup.
 nop
 jp main
 
-
-
-;===============================================================================
-; ROM Info
-;===============================================================================
-DS 48 ; $0104 - $0133 48 Byte. (Filled by rgbfix with logo)
-
+; $0104 - $0133: The Nintendo Logo.
+; Disabled for Copy right reasons
+; Emulators should be fine with this.
+rept 48
+    DB $00
+endr
 
 ; $0134 - $013E: (11 byte) The title, in upper-case letters, followed by zeroes.
-DB "RGWSDAY0001" 
-
+DB "BOILERPLATE"
+;DS 7 ; use padding to fill the rest
 
 ; $013F - $0142: The manufacturer code.
 DB $00, $00, $00, $00
@@ -128,14 +124,22 @@ DB $00
 ; 04 =   128 KB     = 16 Banks
 DB $00
 
+; $014A: Destination code. 
+; 00 = Japanese
+; 01 = Non-Japanese
+DB $01
 
+; $014B: License (must stay $33 to allow for SBG Support)
+; tells the System to look at $0144 for the license code
+DB $33
 
-;===============================================================================
-; Don't change anything from here
-;===============================================================================
-DB $01 ; $014A: Destination code. (00 = Japan, 01 = None Japan)
-DB $33 ; $014B: License (must stay $33 to allow for SBG Support)
-DB $00 ; $014C: ROM version (usually 0)
-DB $00 ; $014D: Header checksum.
-DW $0000 ; $014E- $014F: Global checksum.
+; $014C: ROM version (usually 0)
+DB $00
 
+; $014D: Header checksum.
+; Filled by RGBFIX 
+DB $00
+
+; $014E- $014F: Global checksum.
+; Filled by RGBFIX
+DW $0000
