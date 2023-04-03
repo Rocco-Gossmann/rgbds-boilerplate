@@ -91,6 +91,18 @@ cINTERRUPTS       equ  $FFFF
 cHRAM             equ  $FF80 ; Highram 128 KB (shared with SP) 
 cWINX             equ  $FF4B
 cWINY             equ  $FF4A
+
+; Pallets   =  bit 7 - 6 = 1st color
+;              bit 5 - 4 = 2nd color
+;              bit 3 - 2 = 3rd color
+;              bit 1 - 0 = 4th color
+;
+;    Color  = 11 = white
+;             10 = light gray
+;             01 = dark gray
+;             00 = black
+;
+;    Recommended Default: $E4   (white, lightgray, darkgray, black)
 cOBJPALETT1       equ  $FF49
 cOBJPALETT0       equ  $FF48
 cBGPALETT         equ  $FF47
@@ -117,12 +129,7 @@ cRAMBANK          equ  $A000
 cBGMAP1           equ  $9C00 ; - 9fff   used when LCDC s bit $10 is turned on
 cBGMAP0           equ  $9800 ; - 9bff   used when LCDC s bit $10 is turned off
 
-cTILEDATA0       equ  $8800 ; - 97ff    (4 KB)
-cTILEDATA1       equ  $8000 ; - 8fff    (4 KB) contains also sprite-tiles
+cTILEDATA1        equ  $8800 ; - 97ff    (4 KB)
+cTILEDATA0        equ  $8000 ; - 8fff    (4 KB) contains also sprite-tiles
 
-cVIDEORAM        equ  $8000
-
-
-; =============================================================================
-; Alias
-; =============================================================================
+cVIDEORAM         equ  $8000

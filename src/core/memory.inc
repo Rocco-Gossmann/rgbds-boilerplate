@@ -20,6 +20,45 @@ MACRO fill_mem
 ENDM
 
 /*==============================================================================
+ ## copy_mem(n16 srcadress, n16 destadress, n16 numbytes)
+ Copy a number of bytes from source to des
+ ------------------------------------------------------------------------------
+ ### Input:
+   - srcadress: memory adress from which to read the data
+   - destadress: memory adress to which to write the data
+   - numbytes: number of bytes to be written
+
+ ### Destroys:
+   - AF
+   - HL
+   - BC
+   - DE
+ ============================================================================*/
+MACRO copy_mem
+    ld de, \1
+    ld hl, \2
+    ld bc, \3
+    call _copy_BC_bytes_from_DE_to_HL
+ENDM
+
+/*==============================================================================
+ ## set_mem(n16 adress, n8|r8 byte)
+ Set a byte in memory
+ ------------------------------------------------------------------------------
+ ### Input:
+   - adress: the adress of the byte to set in memory
+   - byte: The value to write to memory
+
+ ### Destroys:
+   - AF
+ ============================================================================*/
+MACRO set_mem
+    ld a, \2 
+    ld [\1], a
+ENDM
+
+
+/*==============================================================================
  ## set_mem_bit(n16 memory adress,  n3 bit)
  sets a bit of a byte in memory to 1 
  Cycles: 7

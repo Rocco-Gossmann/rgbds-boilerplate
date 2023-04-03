@@ -7,8 +7,16 @@ include "core/memory.inc"
 main::
     ; Disable screen
     reset_mem_bit cLCDC, 7
-    ; fill map 0 (32*32 Byte) with zeros
-    fill_mem cBGMAP0, $0400, 0
+
+    ; set background Palette
+    set_mem cBGPALETT, $E4
+
+    ; copy TileSet 
+    copy_mem asset_gfx_tiles, cTILEDATA0, 6144 
+
+    ; fill map 0 (32*32 Byte) with tile $02
+    fill_mem cBGMAP0, $0400, 2
+
     ; Enable screen
     set_mem_bit cLCDC, 7
 
