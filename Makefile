@@ -22,8 +22,10 @@ release: $(OBJFILES) # release ignores symbols, trashes the logo, fixes global c
 run: debug
 	bgb $(TARGET).debug.gb 
 
-%.asm.obj: %.asm
-	rgbasm -h $(ASMFLAGS) $(DIRS) -o$@ $<
+%.asm.obj: %.asm #\
+	 -L = dont optize ld [FFxx] to ldh [FFxx] \
+	 -l = dont add NOP after halt 
+	rgbasm -h -L $(ASMFLAGS) $(DIRS) -o$@ $<
 
 .phony: clean
 

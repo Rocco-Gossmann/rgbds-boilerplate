@@ -85,6 +85,8 @@ bBTN_D_SELECT     equ %1000
 ;       10 -  65536 Hz 
 ;       11 -  16384 Hz 
 
+
+; highram use ldh 
 ; IO-Registers
 ; =============================================
 cINTERRUPTS       equ  $FFFF
@@ -122,6 +124,8 @@ cTMA              equ  $FF06 ; Timer - Reset-Value
                              ; interrupt has been triggered
 
 cJOYPAD           equ  $FF00
+
+; Low Ram (use ld)
 cOAM              equ  $FE00 ; - FE9F
 cRAM              equ  $C000
 cRAMBANK          equ  $A000
