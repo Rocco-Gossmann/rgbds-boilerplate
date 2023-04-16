@@ -9,12 +9,12 @@ ASMFILES    := $(foreach dir,$(SOURCES), $(wildcard $(dir)/*.asm))
 OBJFILES    := $(addsuffix .obj, $(ASMFILES))
 DIRS        := $(addprefix -i, $(SOURCES))
 
-debug: ASMFLAGS = -E
+debug: ASMFLAGS = -E 
 debug: $(OBJFILES) # Debug build gets version with nintendo logo + symbol export
-	rgblink -t -o$(TARGET).debug.gb -n$(TARGET).sym $(OBJFILES)
+	rgblink -t -o$(TARGET).debug.gb -n$(TARGET).debug.sym $(OBJFILES)
 	rgbfix -v $(TARGET).debug.gb 
 
-release: ASMFLAGS = 
+release: ASMFLAGS =  
 release: $(OBJFILES) # release ignores symbols, trashes the logo, fixes global checksum, fix header checksum
 	rgblink -t -o$(TARGET).gb $(OBJFILES)
 	rgbfix -f Lgh $(TARGET).gb  
