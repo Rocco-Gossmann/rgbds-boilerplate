@@ -16,3 +16,22 @@ MACRO check_BC_zero
     call _check_BC_zero
 ENDM
 
+MACRO call_HL
+    call _call_HL   ;3 bytes
+ENDM
+
+
+MACRO push_all 
+    push af
+    push bc
+    push de
+    push hl
+ENDM
+
+
+MACRO pop_all 
+    pop hl
+    pop de
+    pop bc
+    pop af
+ENDM

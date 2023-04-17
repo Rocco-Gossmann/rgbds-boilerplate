@@ -22,3 +22,20 @@ add_A_to_HL::
         add hl, bc
     pop bc
     ret
+
+
+_call_HL::
+    push af 
+    push bc
+    ld a, [hli]
+    ld b, a
+    ld a, [hld]
+    ld c, a
+
+    ld hl, 0
+    add hl, bc
+
+    pop bc
+    pop af
+    jp hl
+    ret

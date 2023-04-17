@@ -1,77 +1,34 @@
-SECTION "rom", ROM0[$0000]
-; $0000 - $003F: Reset handlers.
-rept 63
-    nop
-endr
-ret
-
-; $0040 - $0067: Interrupts.
-; $0040  VBlank
-reti
-rept 7
-    nop
-endr
-
-; $0048 stats
-reti
-rept 7
-    nop
-endr
-
-; $0050  timer
-reti
-rept 7
-    nop
-endr
-
-; $0058 link-cable (serial)
-reti
-rept 7
-    nop
-endr
-
-; $0060  Joypad
-reti
-rept 7
-    nop
-endr
-
-; $0068 - $00FF: Space.
-DS $98
-
-; $0100 - $0103: Startup.
-nop
-jp main
-
-; $0104 - $0133: The Nintendo Logo.
-; Disabled for Copy right reasons
-; Emulators should be fine with this.
-rept 48
-    DB $00
-endr
-
-; $0134 - $013E: (11 byte) The title, in upper-case letters, followed by zeroes.
+;===============================================================================
+SECTION "header_cardtitle", ROM0[$0134] ; - $013E (11 bytes)
+;-------------------------------------------------------------------------------
 DB "BOILERPLATE"
-;DS 7 ; use padding to fill the rest
+;DS 7 ; use padding to fill the rest of the 11 bytes if needed
 
-; $013F - $0142: The manufacturer code.
+;===============================================================================
+SECTION "header_manufacturer_code", ROM0[$013f] ; - $0142  (4 bytes)
+;-------------------------------------------------------------------------------
 DB $00, $00, $00, $00
 
-; $0143: Gameboy Color compatibility flag.    
+;===============================================================================
+SECTION "header_gb_compatibility", ROM0[$0143] ; (1 byte)
+;-------------------------------------------------------------------------------
 ; 00 =  GBC unsupported
 ; 80 =  GBC compatible
 ; C0 =  GBC exclusive
 DB 00
 
 ; $0144 - $0145: "New" Licensee Code, a two character name.
-DB "OK"
 
-; $0146: SGB compatibility (Super Gameboy).
+;===============================================================================
+SECTION "header_supergameboy_supported", ROM0[$0146] ; (1 byte)
+;-------------------------------------------------------------------------------
 ; 00 = unsupported
 ; 03 = supported
 DB $00
 
-; $0147: Card-Type:
+;===============================================================================
+SECTION "header_cardtype", ROM0[$0147] ; (1 byte)
+;-------------------------------------------------------------------------------
 ; 00 = Rom Only (32 KB max size)                    
 ; 01 = MBC1
 ; 02 = MBC1 with RAM
@@ -103,7 +60,9 @@ DB $00
 ; FF = Hudson HUC-1 With Battery
 DB $00
 
-; $0148: Rom size.
+;===============================================================================
+SECTION "header_romsize", ROM0[$0148] ; (1 byte)
+;-------------------------------------------------------------------------------
 ; 00 =    32 KB =   2 Banks
 ; 01 =    64 KB =   4 Banks
 ; 02 =   128 KB =   8 Banks
@@ -116,7 +75,9 @@ DB $00
 ; 54 =  1536 KB =  96 Banks
 DB $00
 
-; $0149: Ram size (SRAM => Save Memory (static RAM)).
+;===============================================================================
+SECTION "header_saveramsize", ROM0[$0149] ; (1 byte) Ram size (SRAM => Save Memory (static RAM)).
+;-------------------------------------------------------------------------------
 ; 00 =     0 Byte
 ; 01 =     2 KB     =  1 Bank
 ; 02 =     8 KB     =  1 Bank
@@ -124,22 +85,10 @@ DB $00
 ; 04 =   128 KB     = 16 Banks
 DB $00
 
+;===============================================================================
+SECTION "header_region", ROM0[$014a] ; (1 byte)
+;-------------------------------------------------------------------------------
 ; $014A: Destination code. 
 ; 00 = Japanese
 ; 01 = Non-Japanese
 DB $01
-
-; $014B: License (must stay $33 to allow for SBG Support)
-; tells the System to look at $0144 for the license code
-DB $33
-
-; $014C: ROM version (usually 0)
-DB $00
-
-; $014D: Header checksum.
-; Filled by RGBFIX 
-DB $00
-
-; $014E- $014F: Global checksum.
-; Filled by RGBFIX
-DW $0000
