@@ -7,7 +7,7 @@ include "core/state.inc"
 
 ;===============================================================================
 STATE_MAIN:: DB %01100000  ; $60  ==  load + main + no unload  + no interrupts
-; See state.inc, on how to change states
+; See state.inc, on how to define and change states
 ;-------------------------------------------------------------------------------
     DW .start
     DW .update
