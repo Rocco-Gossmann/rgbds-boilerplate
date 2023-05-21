@@ -8,15 +8,14 @@ _fill_BC_bytes_at_HL_with_A::
     push bc
     push af
 
-    .loopstart:   
-        check_BC_zero
+:        check_BC_zero
         jr z, .end
             pop af
             push af
 
             ld [hli], a
             dec bc
-        jr .loopstart
+        jr :-
     
     .end:
         pop af

@@ -59,15 +59,19 @@ jp main
 ;===============================================================================
 SECTION "main", ROM0[$150]
 ;-------------------------------------------------------------------------------
-main::
-    ld hl, nop_call
-    ld a, h
-    ldh [current_state.unload], a
-    ld a, l
-    ldh [current_state.unload+1], a
+main:
+    call _sprites_init                ; initialize sprites first
+    ;---------------------------------------------------------------------------
 
-    ld bc, STATE_MAIN 
-    call _load_new_state_from_bc
+    ld hl, nop_call                  ;
+    ld a, h                          ;
+    ldh [current_state.unload], a    ;
+    ld a, l                          ;
+    ldh [current_state.unload+1], a  ; Setup the Initial State
+                                     ;
+    ld bc, STATE_MAIN                ;
+    call _load_new_state_from_bc     ; 
+    ;---------------------------------------------------------------------------
 
 ; main-loop
     .loop:

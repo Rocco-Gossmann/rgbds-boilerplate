@@ -35,8 +35,6 @@
 ;                        1 ($01)= set if state proveides a the .serial - interrupt function
 ;                     
 
-
-
 ; A state providing a .main, .vblank and unload function, would lock like thies
 ;    state_name::  DB %00111000 ; ($38)
 ;        DW .main
